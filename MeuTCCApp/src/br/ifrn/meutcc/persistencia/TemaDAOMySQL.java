@@ -30,7 +30,7 @@ public class TemaDAOMySQL implements TemaDAO {
 		if (conn != null) {
 			try {
 				Statement stListaTema = conn.createStatement();
-				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM Tema as t WHERE t.idCurso = "+idCurso);
+				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM tema as t WHERE t.idCurso = "+idCurso);
 				List<Tema> temas = new ArrayList<Tema>();
 				while (rsTemas.next()) {
 					Tema tema = new Tema();
@@ -53,7 +53,7 @@ public class TemaDAOMySQL implements TemaDAO {
 		if (conn != null) {
 			try {
 				Statement stListaTema = conn.createStatement();
-				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM Tema as t WHERE t.id = "+idTema);
+				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM tema as t WHERE t.id = "+idTema);
 				Tema tema = null;
 				if (rsTemas.next()) {
 					tema = new Tema();
@@ -67,6 +67,31 @@ public class TemaDAOMySQL implements TemaDAO {
 			}
 		}
 		return null;
+	}
+	
+	public int countCandidatos(int idTema) {
+		
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stCountCandidatos = conn.createStatement();
+				ResultSet rsCountCandidatos = stCountCandidatos.executeQuery("select count(usuario.`id`) as numCandidatos from usuario join aluno_tema on aluno_tema.user_id = usuario.id where tema_id = "+idTema);
+				int countCandidatos = -1;
+				if (rsCountCandidatos.next()) {
+					countCandidatos = rsCountCandidatos.getInt("numCandidatos");
+	
+				}
+				return countCandidatos;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return -1; // Erro ao encontrar candidatos.
+
+	}
+	
+	public boolean addCandidato(int idTema, int idCandidato) {
+		
 	}
 
 }

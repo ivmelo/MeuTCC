@@ -28,10 +28,22 @@ public class ViewTema extends HttpServlet {
 		} catch (NumberFormatException nfex) {
 			nfex.printStackTrace();
 		}
+		
 		Tema model = new Tema();
 		Tema tema = model.getTema(idTema);
 		request.setAttribute("tema", tema);
 		request.getRequestDispatcher("viewTema.jsp").forward(request, response);
 	}
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("idTema");
+		int idTema = -1;
+		try {
+			idTema = Integer.parseInt(id);
+		} catch (NumberFormatException nfex) {
+			nfex.printStackTrace();
+		}
+		
+		System.out.println("POST: " + id);
+	}
 }

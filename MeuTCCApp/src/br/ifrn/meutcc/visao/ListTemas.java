@@ -24,6 +24,7 @@ public class ListTemas extends HttpServlet {
 		int idCurso = 1;
 		try {
 			idCurso = Integer.parseInt(curso);
+			System.out.println(idCurso);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}

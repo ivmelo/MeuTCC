@@ -15,10 +15,18 @@
 		out.println("<ul>");
 		out.println("<li> ID = "+tema.getId()+"</li>");
 		out.println("<li> Descrição = "+tema.getDescricao()+"</li>");
+		out.println("<li> Candidatos: " + tema.countCandidatos() + "</li>");
 		out.println("</ul>");
+		%>
+		<form action="/MeuTCC/ViewTema" method="POST">
+			<input type="hidden" name="idTema" value="<%= tema.getId() %>">
+			<button type="submit">Registrar-se</button>
+		</form>
+		<%
 	} else {
 		out.println("<h3>Não há nenhum tema para mostrar!</h3>");
 	}
 %>
+
 </body>
 </html>
