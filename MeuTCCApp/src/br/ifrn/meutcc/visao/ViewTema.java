@@ -44,6 +44,14 @@ public class ViewTema extends HttpServlet {
 			nfex.printStackTrace();
 		}
 		
+		Tema model = new Tema();
+		Tema tema = model.getTema(idTema);
+		try {
+			tema.addCandidato(tema.getId(), 3);
+		} catch (Exception e) {
+			System.out.println("ERROR!");
+		}
+				
 		System.out.println("POST: " + id);
 	}
 }

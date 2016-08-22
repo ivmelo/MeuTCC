@@ -42,7 +42,7 @@ public class Tema {
 	public int countCandidatos() {
 		return dao.countCandidatos(this.id);
 	}
-	public boolean addCandidato(int idTema, int idCandidato) {
+	public boolean addCandidato(int idTema, int idCandidato) throws Exception {
 		return dao.addCandidato(this.id, idCandidato);
 	}
 }

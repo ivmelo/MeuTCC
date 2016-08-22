@@ -90,8 +90,49 @@ public class TemaDAOMySQL implements TemaDAO {
 
 	}
 	
-	public boolean addCandidato(int idTema, int idCandidato) {
+	// adiciona candidato a tema
+	public boolean addCandidato(int idTema, int idCandidato) throws Exception {
 		
+		if (this.isCandidato(idTema, idCandidato)) {
+			throw new Exception();
+		} else {
+			Connection conn = conexao.getConexaoBD();
+			if (conn != null) {
+				try {
+					Statement stAddCandidato = conn.createStatement();
+					int itWorks = stAddCandidato.executeUpdate("insert into aluno_tema (user_id, tema_id) values ('" + idCandidato + "', '" + idTema + "')");
+					
+					if (itWorks == 1) {
+						return true;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return false; // Erro ao inserir candidato.
+		}
+		
+		
+	}
+	
+	// diz se um candidato está registrado em um tema
+	private boolean isCandidato(int idTema, int idCandidato) {
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stCountCandidatos = conn.createStatement();
+				ResultSet rsCountCandidatos = stCountCandidatos.executeQuery("select count(usuario.`id`) as numCandidatos from usuario join aluno_tema on aluno_tema.user_id = usuario.id where tema_id = " + idTema + " and usuario.id = " + idCandidato);
+				if (rsCountCandidatos.next()) {
+					if(rsCountCandidatos.getInt("numCandidatos") == 1) {
+						return true;
+					}
+	
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 }
