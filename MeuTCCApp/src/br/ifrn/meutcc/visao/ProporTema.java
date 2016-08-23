@@ -23,10 +23,8 @@ public class ProporTema extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recuperar o id do tema
-		Orientador model = new Orientador();
-		List<Orientador> orientadores = model.listOrientadores();
-		
-
+		// Orientador model = new Orientador();
+		List<Orientador> orientadores = Orientador.listOrientadores();
 		
 		request.setAttribute("orientadores", orientadores);
 		request.getRequestDispatcher("proporTema.jsp").forward(request, response);
@@ -55,8 +53,8 @@ public class ProporTema extends HttpServlet {
 			t.setDescricao(descricao);
 			t.setAceito(false);
 						
-			Orientador oriModel = new Orientador();
-			Orientador o = oriModel.find(idOrientador);
+			// Orientador oriModel = new Orientador();
+			Orientador o = Orientador.find(idOrientador);
 			
 			t.setOrientador(o);
 			

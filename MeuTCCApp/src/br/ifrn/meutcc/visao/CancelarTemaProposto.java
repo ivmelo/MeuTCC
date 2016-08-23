@@ -28,8 +28,8 @@ public class CancelarTemaProposto extends HttpServlet {
 			nfex.printStackTrace();
 		}
 		
-		Tema model = new Tema();
-		Tema tema = model.getTema(idTema);
+		// Tema model = new Tema();
+		Tema tema = Tema.getTema(idTema);
 		try {
 			tema.delete();
 		} catch (Exception e) {

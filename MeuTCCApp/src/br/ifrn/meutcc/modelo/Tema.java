@@ -10,7 +10,7 @@ public class Tema {
 	private int id;
 	private String titulo;
 	private String descricao;
-	private TemaDAO dao;
+	private static TemaDAO dao = FabricaDAO.getInstancia("mysql").createTemaDAO();
 	private boolean aceito;
 	private Orientador orientador;
 	private OrientadorDAO orientadorDao;
@@ -44,10 +44,10 @@ public class Tema {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public List<Tema> listTemas(int idCurso) {
+	public static List<Tema> listTemas(int idCurso) {
 		return dao.listTemas(idCurso);
 	}
-	public Tema getTema(int idTema) {
+	public static Tema getTema(int idTema) {
 		return dao.getTema(idTema);
 	}
 	
@@ -63,7 +63,7 @@ public class Tema {
 		return dao.isCandidato(idTema, idCandidato);
 	}
 	
-	public List<Tema> listTemasPropostos() {
+	public static List<Tema> listTemasPropostos() {
 		return dao.listTemasPropostos();
 	}
 	
