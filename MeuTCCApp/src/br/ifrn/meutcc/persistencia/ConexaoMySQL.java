@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConexaoMySQL {
 	private final String MySQLDriver = "com.mysql.jdbc.Driver";
-	private final String url = "jdbc:mysql://localhost/meutcc";
+	private final String url = "jdbc:mysql://127.0.0.1/meutcc";
 	private final String nome = "root";
-	private final String senha = "senha!123";
+	private final String senha = "";
 	
 	private Connection conn = null;
 	
@@ -22,7 +22,7 @@ public class ConexaoMySQL {
 		}
 		try {
 			Class.forName(MySQLDriver);
-			conn = DriverManager.getConnection(url, nome, senha);
+			conn = DriverManager.getConnection(this.url, this.nome, this.senha);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

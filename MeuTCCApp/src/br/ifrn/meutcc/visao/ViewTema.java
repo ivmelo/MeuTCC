@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ifrn.meutcc.modelo.Orientador;
 import br.ifrn.meutcc.modelo.Tema;
 
 @WebServlet("/ViewTema")
@@ -28,10 +29,44 @@ public class ViewTema extends HttpServlet {
 		} catch (NumberFormatException nfex) {
 			nfex.printStackTrace();
 		}
+		
 		Tema model = new Tema();
 		Tema tema = model.getTema(idTema);
+		
+		// Orientador orModel = new Orientador();
+		// Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+		// Ainda melhor e mais limpo:
+		Orientador orientador = tema.getOrientador();
+		
 		request.setAttribute("tema", tema);
+		request.setAttribute("orientador", orientador);
 		request.getRequestDispatcher("viewTema.jsp").forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("idTema");
+		int idTema = -1;
+		try {
+			idTema = Integer.parseInt(id);
+		} catch (NumberFormatException nfex) {
+			nfex.printStackTrace();
+		}
+		
+		Tema model = new Tema();
+		Tema tema = model.getTema(idTema);
+		try {
+			tema.addCandidato(tema.getId(), 3);
+		} catch (Exception e) {
+			System.out.println("ERROR!");
+		}
+		
+		Orientador orModel = new Orientador();
+		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+				
+		System.out.println("POST: " + id);
+		System.out.println("ORIENTADOR: " + orientador.getNome());
+		
+		response.sendRedirect(request.getContextPath() + "/ViewTema?id=" + idTema);
 
+	}
 }

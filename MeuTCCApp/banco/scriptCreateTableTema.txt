@@ -1,7 +1,0 @@
-CREATE TABLE `tema` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(256) DEFAULT NULL,
-  `descricao` varchar(256) DEFAULT NULL,
-  `idCurso` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
