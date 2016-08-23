@@ -26,6 +26,16 @@ public class ProporTema extends HttpServlet {
 		// Orientador model = new Orientador();
 		List<Orientador> orientadores = Orientador.listOrientadores();
 		
+		String erro = (String) request.getParameter("erro");
+		if (erro != null) {
+			String errMsg = "Por favor, preencha todos os campos!";
+			request.setAttribute("msgErr", errMsg);
+			
+			System.out.println(errMsg);
+		}
+		
+		System.out.println(erro);
+		
 		request.setAttribute("orientadores", orientadores);
 		request.getRequestDispatcher("proporTema.jsp").forward(request, response);
 	}
@@ -37,8 +47,8 @@ public class ProporTema extends HttpServlet {
 		
 		if (idOr.trim() == "" || titulo.trim() == "" || descricao.trim() == "") {
 			// empty field.
-			// redirect back with validation errors...
-			response.sendRedirect(request.getContextPath() + "/ProporTema");
+			// redirect back with validation errors...			
+			response.sendRedirect(request.getContextPath() + "/ProporTema?erro=s");
 		} else {
 			int idOrientador = -1;
 			

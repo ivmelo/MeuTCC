@@ -42,6 +42,14 @@
 				</select>
 			</div>
 			<div>
+				<%
+				String mensagemErro = (String) request.getAttribute("msgErr");
+				if (mensagemErro != null) {
+					out.println("<p>" + mensagemErro + "</p>");
+				}
+				%>
+			</div>
+			<div>
 				<button type="submit" class="btn btn-info">Enviar Proposta</button>
 			</div>
 		</form>
