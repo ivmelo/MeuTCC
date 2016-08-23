@@ -116,7 +116,7 @@ public class TemaDAOMySQL implements TemaDAO {
 	}
 	
 	// diz se um candidato está registrado em um tema
-	private boolean isCandidato(int idTema, int idCandidato) {
+	public boolean isCandidato(int idTema, int idCandidato) {
 		Connection conn = conexao.getConexaoBD();
 		if (conn != null) {
 			try {

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ifrn.meutcc.modelo.Orientador;
 import br.ifrn.meutcc.modelo.Tema;
 
 @WebServlet("/ViewTema")
@@ -31,7 +32,12 @@ public class ViewTema extends HttpServlet {
 		
 		Tema model = new Tema();
 		Tema tema = model.getTema(idTema);
+		
+		Orientador orModel = new Orientador();
+		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+		
 		request.setAttribute("tema", tema);
+		request.setAttribute("orientador", orientador);
 		request.getRequestDispatcher("viewTema.jsp").forward(request, response);
 	}
 	
@@ -51,7 +57,15 @@ public class ViewTema extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("ERROR!");
 		}
+		
+		Orientador orModel = new Orientador();
+		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
 				
 		System.out.println("POST: " + id);
+		System.out.println("ORIENTADOR: " + orientador.getNome());
+		
+		request.setAttribute("tema", tema);
+		request.setAttribute("orientador", orientador);
+		request.getRequestDispatcher("viewTema.jsp").forward(request, response);
 	}
 }

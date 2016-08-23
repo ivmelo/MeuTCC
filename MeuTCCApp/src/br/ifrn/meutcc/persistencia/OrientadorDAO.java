@@ -1,5 +1,7 @@
 package br.ifrn.meutcc.persistencia;
 
-public class OrientadorDAO {
+import br.ifrn.meutcc.modelo.Orientador;
 
+public interface OrientadorDAO {
+	public Orientador getOrientadorPorTema(int idTema);
 }

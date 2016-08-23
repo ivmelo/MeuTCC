@@ -9,4 +9,5 @@ public interface TemaDAO {
 	public Tema getTema(int idTema);
 	public int countCandidatos(int idTema);
 	public boolean addCandidato(int idTema, int idCandidato) throws Exception;
+	public boolean isCandidato(int idTema, int idCandidato);
 }
