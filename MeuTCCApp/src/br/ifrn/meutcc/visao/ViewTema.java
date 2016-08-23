@@ -64,8 +64,7 @@ public class ViewTema extends HttpServlet {
 		System.out.println("POST: " + id);
 		System.out.println("ORIENTADOR: " + orientador.getNome());
 		
-		request.setAttribute("tema", tema);
-		request.setAttribute("orientador", orientador);
-		request.getRequestDispatcher("viewTema.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/ViewTema?id=" + idTema);
+
 	}
 }

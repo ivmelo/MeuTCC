@@ -15,11 +15,11 @@
   <body>
   	<div class="container">
   	
-  	    <h1>Temas Disponíveis para TCC!</h1>
+  	    <h1>Temas Propostos para TCC.</h1>
   	    
    		<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="ListTemas">Temas Disponíveis</a></li>
-		  <li role="presentation"><a href="ListTemasPropostos">Temas Propostos</a></li>
+		  <li role="presentation"><a href="ListTemas">Temas Disponíveis</a></li>
+		  <li role="presentation" class="active"><a href="ListTemasPropostos">Temas Propostos</a></li>
 		</ul>
 
   		<div class="list-group">
@@ -29,6 +29,7 @@
 					for(Tema t: temas) {
 						out.println("<a class=\"list-group-item\" href=\"/MeuTCC/ViewTema?id="+t.getId()+
 										"\">["+t.getId()+"] "+t.getTitulo()+"</a>");
+						System.out.println(t.getAceito());
 					}
 				} else {
 					out.println("<p>Nenhum tema cadastrado para o referido curso!</p>");

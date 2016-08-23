@@ -10,6 +10,8 @@ public class Tema {
 	private String titulo;
 	private String descricao;
 	private TemaDAO dao;
+	private boolean aceito;
+	
 	public Tema() {
 		super();
 		dao = FabricaDAO.getInstancia("mysql").createTemaDAO();
@@ -19,6 +21,12 @@ public class Tema {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void setAceito(boolean aceito) {
+		this.aceito = aceito;
+	}
+	public boolean getAceito() {
+		return this.aceito;
 	}
 	public String getTitulo() {
 		return titulo;
@@ -49,5 +57,13 @@ public class Tema {
 	
 	public boolean isCandidato(int idTema, int idCandidato) {
 		return dao.isCandidato(idTema, idCandidato);
+	}
+	
+	public List<Tema> listTemasPropostos() {
+		return dao.listTemasPropostos();
+	}
+	
+	public void delete() {
+		dao.deleteTema(this.id);
 	}
 }

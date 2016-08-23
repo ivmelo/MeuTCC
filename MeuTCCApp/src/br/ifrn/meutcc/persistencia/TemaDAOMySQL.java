@@ -30,7 +30,7 @@ public class TemaDAOMySQL implements TemaDAO {
 		if (conn != null) {
 			try {
 				Statement stListaTema = conn.createStatement();
-				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM tema as t WHERE t.idCurso = "+idCurso);
+				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM tema as t WHERE t.idCurso = " + idCurso + " and t.aceito = 1");
 				List<Tema> temas = new ArrayList<Tema>();
 				while (rsTemas.next()) {
 					Tema tema = new Tema();
@@ -60,6 +60,7 @@ public class TemaDAOMySQL implements TemaDAO {
 					tema.setId(rsTemas.getInt("id"));
 					tema.setTitulo(rsTemas.getString("titulo"));
 					tema.setDescricao(rsTemas.getString("descricao"));
+					tema.setAceito(rsTemas.getBoolean("aceito"));
 				}
 				return tema;
 			} catch (SQLException e) {
@@ -134,5 +135,46 @@ public class TemaDAOMySQL implements TemaDAO {
 		}
 		return false;
 	}
-
+	
+	// lista temas propostos
+	public List<Tema> listTemasPropostos() {
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stListaTema = conn.createStatement();
+				ResultSet rsTemas = stListaTema.executeQuery("SELECT * FROM tema as t WHERE t.aceito = 0");
+				List<Tema> temas = new ArrayList<Tema>();
+				while (rsTemas.next()) {
+					Tema tema = new Tema();
+					tema.setId(rsTemas.getInt("id"));
+					tema.setTitulo(rsTemas.getString("titulo"));
+					tema.setDescricao(rsTemas.getString("descricao"));
+					temas.add(tema);
+				}
+				return temas;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return null;
+	}
+	
+	public void deleteTema(int idTema) {
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stCountCandidatos = conn.createStatement();
+				int status = stCountCandidatos.executeUpdate("delete from tema where id = " + idTema);
+				if (status == 1) {
+					//return true;
+					// worked
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		//return false;
+		// didn't work
+	}
 }
