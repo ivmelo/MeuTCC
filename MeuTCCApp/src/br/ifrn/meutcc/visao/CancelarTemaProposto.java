@@ -32,7 +32,6 @@ public class CancelarTemaProposto extends HttpServlet {
 		Tema tema = model.getTema(idTema);
 		try {
 			tema.delete();
-			System.out.println("DELETADO!");
 		} catch (Exception e) {
 			System.out.println("ERROR DELETING TEMA!");
 		}

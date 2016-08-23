@@ -2,6 +2,7 @@ package br.ifrn.meutcc.modelo;
 
 import br.ifrn.meutcc.persistencia.FabricaDAO;
 import br.ifrn.meutcc.persistencia.OrientadorDAO;
+import java.util.List;
 
 public class Orientador extends Usuario{
 	
@@ -16,4 +17,7 @@ public class Orientador extends Usuario{
 		return dao.getOrientadorPorTema(idTema);
 	}
 	
+	public List<Orientador> listOrientadores() {
+		return dao.listOrientadores();
+	}
 }

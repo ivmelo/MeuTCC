@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.ifrn.meutcc.modelo.Orientador;
 
@@ -24,7 +26,6 @@ public class OrientadorDAOMySQL implements OrientadorDAO {
 		return instancia;
 	}
 	
-	@Override
 	public Orientador getOrientadorPorTema(int idTema) {
 		// TODO Auto-generated method stub
 		Connection conn = conexao.getConexaoBD();
@@ -48,6 +49,33 @@ public class OrientadorDAOMySQL implements OrientadorDAO {
 		}
 		return null;
 		
+	}
+
+	public List<Orientador> listOrientadores() {
+		// TODO Auto-generated method stub
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stListaOrientadores = conn.createStatement();
+				ResultSet rsOrientadores = stListaOrientadores.executeQuery("select orientador.id, usuario.nome, usuario.email, usuario.senha, usuario.matricula from usuario join orientador on orientador.idUsuario = usuario.id");
+				List<Orientador> orientadores = new ArrayList<Orientador>();
+				while (rsOrientadores.next()) {
+					Orientador orientador = new Orientador();
+					orientador.setId(rsOrientadores.getInt("id"));
+					orientador.setNome(rsOrientadores.getString("nome"));
+					orientador.setMatricula(rsOrientadores.getString("matricula"));
+					orientador.setEmail(rsOrientadores.getString("email"));
+					orientador.setSenha(rsOrientadores.getString("senha"));
+					
+					orientadores.add(orientador);
+				}
+				return orientadores;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return null;	
 	}
 
 }
