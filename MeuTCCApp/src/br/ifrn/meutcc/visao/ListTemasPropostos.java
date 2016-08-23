@@ -30,8 +30,8 @@ public class ListTemasPropostos extends HttpServlet{
 //		} catch (NumberFormatException e) {
 //			e.printStackTrace();
 //		}
-		Tema modelo = new Tema();
-		List<Tema> temas = modelo.listTemasPropostos();
+		//Tema modelo = new Tema();
+		List<Tema> temas = Tema.listTemasPropostos();
 		request.setAttribute("temas", temas);
 		request.getRequestDispatcher("listaTemasPropostos.jsp").forward(request, response);
 	}

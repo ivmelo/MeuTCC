@@ -28,8 +28,8 @@ public class ListTemas extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		Tema modelo = new Tema();
-		List<Tema> temas = modelo.listTemas(idCurso);
+//		Tema modelo = new Tema();
+		List<Tema> temas = Tema.listTemas(idCurso);
 		request.setAttribute("temas", temas);
 		request.getRequestDispatcher("listaTemas.jsp").forward(request, response);
 	}

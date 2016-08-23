@@ -23,10 +23,18 @@ public class ProporTema extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recuperar o id do tema
-		Orientador model = new Orientador();
-		List<Orientador> orientadores = model.listOrientadores();
+		// Orientador model = new Orientador();
+		List<Orientador> orientadores = Orientador.listOrientadores();
 		
-
+		String erro = (String) request.getParameter("erro");
+		if (erro != null) {
+			String errMsg = "Por favor, preencha todos os campos!";
+			request.setAttribute("msgErr", errMsg);
+			
+			System.out.println(errMsg);
+		}
+		
+		System.out.println(erro);
 		
 		request.setAttribute("orientadores", orientadores);
 		request.getRequestDispatcher("proporTema.jsp").forward(request, response);
@@ -39,8 +47,8 @@ public class ProporTema extends HttpServlet {
 		
 		if (idOr.trim() == "" || titulo.trim() == "" || descricao.trim() == "") {
 			// empty field.
-			// redirect back with validation errors...
-			response.sendRedirect(request.getContextPath() + "/ProporTema");
+			// redirect back with validation errors...			
+			response.sendRedirect(request.getContextPath() + "/ProporTema?erro=s");
 		} else {
 			int idOrientador = -1;
 			
@@ -55,8 +63,8 @@ public class ProporTema extends HttpServlet {
 			t.setDescricao(descricao);
 			t.setAceito(false);
 						
-			Orientador oriModel = new Orientador();
-			Orientador o = oriModel.find(idOrientador);
+			// Orientador oriModel = new Orientador();
+			Orientador o = Orientador.find(idOrientador);
 			
 			t.setOrientador(o);
 			

@@ -30,9 +30,9 @@ public class ViewTema extends HttpServlet {
 			nfex.printStackTrace();
 		}
 		
-		Tema model = new Tema();
-		Tema tema = model.getTema(idTema);
-		
+		//Tema model = new Tema();
+		Tema tema = Tema.getTema(idTema);
+				
 		// Orientador orModel = new Orientador();
 		// Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
 		// Ainda melhor e mais limpo:
@@ -52,16 +52,18 @@ public class ViewTema extends HttpServlet {
 			nfex.printStackTrace();
 		}
 		
-		Tema model = new Tema();
-		Tema tema = model.getTema(idTema);
+//		Tema model = new Tema();
+		Tema tema = Tema.getTema(idTema);
 		try {
 			tema.addCandidato(tema.getId(), 3);
 		} catch (Exception e) {
 			System.out.println("ERROR!");
 		}
 		
-		Orientador orModel = new Orientador();
-		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+//		Orientador orModel = new Orientador();
+//		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+		
+		Orientador orientador = Orientador.getOrientadorPorTema(tema.getId());
 				
 		System.out.println("POST: " + id);
 		System.out.println("ORIENTADOR: " + orientador.getNome());
