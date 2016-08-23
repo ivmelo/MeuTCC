@@ -33,8 +33,10 @@ public class ViewTema extends HttpServlet {
 		Tema model = new Tema();
 		Tema tema = model.getTema(idTema);
 		
-		Orientador orModel = new Orientador();
-		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+		// Orientador orModel = new Orientador();
+		// Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
+		// Ainda melhor e mais limpo:
+		Orientador orientador = tema.getOrientador();
 		
 		request.setAttribute("tema", tema);
 		request.setAttribute("orientador", orientador);

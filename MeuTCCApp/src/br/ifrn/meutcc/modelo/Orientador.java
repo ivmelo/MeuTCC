@@ -20,4 +20,8 @@ public class Orientador extends Usuario{
 	public List<Orientador> listOrientadores() {
 		return dao.listOrientadores();
 	}
+	
+	public Orientador find(int idOrientador) {
+		return dao.findOriendator(idOrientador);
+	}
 }

@@ -12,4 +12,5 @@ public interface TemaDAO {
 	public boolean isCandidato(int idTema, int idCandidato);
 	public List<Tema> listTemasPropostos();
 	public void deleteTema(int idTema);
+	public void save(Tema tema);
 }

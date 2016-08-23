@@ -36,6 +36,8 @@
 				}
 			%>
 		</div>
+		
+		<a href="ProporTema" class="btn btn-primary">Propor Tema</a>
 		  	
   	</div>
 

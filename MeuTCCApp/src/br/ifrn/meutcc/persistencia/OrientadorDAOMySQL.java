@@ -78,4 +78,29 @@ public class OrientadorDAOMySQL implements OrientadorDAO {
 		return null;	
 	}
 
+	public Orientador findOriendator(int idOrientador) {
+		// TODO Auto-generated method stub
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				Statement stOrientador = conn.createStatement();
+				ResultSet rsOrientador = stOrientador.executeQuery("select orientador.id, usuario.nome, usuario.email, usuario.senha, usuario.matricula from usuario join orientador on orientador.idUsuario = usuario.id where orientador.id = " + idOrientador);
+				if (rsOrientador.next()) {
+					Orientador orientador = new Orientador();
+					orientador.setId(rsOrientador.getInt("id"));
+					orientador.setNome(rsOrientador.getString("nome"));
+					orientador.setMatricula(rsOrientador.getString("matricula"));
+					orientador.setEmail(rsOrientador.getString("email"));
+					orientador.setSenha(rsOrientador.getString("senha"));
+					
+					return orientador;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return null;		
+	}
+
 }

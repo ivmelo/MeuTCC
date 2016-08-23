@@ -6,4 +6,5 @@ import java.util.List;
 public interface OrientadorDAO {
 	public Orientador getOrientadorPorTema(int idTema);
 	public List<Orientador> listOrientadores();
+	public Orientador findOriendator(int idOrientador);
 }

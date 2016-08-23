@@ -32,30 +32,42 @@ public class ProporTema extends HttpServlet {
 		request.getRequestDispatcher("proporTema.jsp").forward(request, response);
 	}
 	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String id = request.getParameter("idTema");
-//		int idTema = -1;
-//		try {
-//			idTema = Integer.parseInt(id);
-//		} catch (NumberFormatException nfex) {
-//			nfex.printStackTrace();
-//		}
-//		
-//		Tema model = new Tema();
-//		Tema tema = model.getTema(idTema);
-//		try {
-//			tema.addCandidato(tema.getId(), 3);
-//		} catch (Exception e) {
-//			System.out.println("ERROR!");
-//		}
-//		
-//		Orientador orModel = new Orientador();
-//		Orientador orientador = orModel.getOrientadorPorTema(tema.getId());
-//				
-//		System.out.println("POST: " + id);
-//		System.out.println("ORIENTADOR: " + orientador.getNome());
-//		
-//		response.sendRedirect(request.getContextPath() + "/ViewTema?id=" + idTema);
-//
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idOr = request.getParameter("orientador");
+		String titulo = request.getParameter("titulo");
+		String descricao = request.getParameter("descricao");
+		
+		if (idOr.trim() == "" || titulo.trim() == "" || descricao.trim() == "") {
+			// empty field.
+			// redirect back with validation errors...
+			response.sendRedirect(request.getContextPath() + "/ProporTema");
+		} else {
+			int idOrientador = -1;
+			
+			try {
+				idOrientador = Integer.parseInt(idOr);
+			} catch (NumberFormatException nfex) {
+				nfex.printStackTrace();
+			}
+			
+			Tema t = new Tema();
+			t.setTitulo(titulo);
+			t.setDescricao(descricao);
+			t.setAceito(false);
+						
+			Orientador oriModel = new Orientador();
+			Orientador o = oriModel.find(idOrientador);
+			
+			t.setOrientador(o);
+			
+			t.save();
+			
+			System.out.println(t.getId());
+			
+			response.sendRedirect(request.getContextPath() + "/ViewTema?id=" + t.getId());
+		}
+		
+		
+
+	}
 }

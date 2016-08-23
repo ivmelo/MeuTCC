@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.ifrn.meutcc.persistencia.FabricaDAO;
 import br.ifrn.meutcc.persistencia.TemaDAO;
+import br.ifrn.meutcc.persistencia.OrientadorDAO;
 
 public class Tema {
 	private int id;
@@ -11,10 +12,13 @@ public class Tema {
 	private String descricao;
 	private TemaDAO dao;
 	private boolean aceito;
+	private Orientador orientador;
+	private OrientadorDAO orientadorDao;
 	
 	public Tema() {
 		super();
 		dao = FabricaDAO.getInstancia("mysql").createTemaDAO();
+		orientadorDao = FabricaDAO.getInstancia("mysql").createOrientadorDAO();
 	}
 	public int getId() {
 		return id;
@@ -65,5 +69,19 @@ public class Tema {
 	
 	public void delete() {
 		dao.deleteTema(this.id);
+	}
+	
+	public void setOrientador(Orientador o) {
+		this.orientador = o;
+	}
+	
+	public Orientador getOrientador() {
+		if (orientador == null) {
+			this.orientador = orientadorDao.getOrientadorPorTema(this.id);
+		}
+		return this.orientador;
+	}
+	public void save() {
+		dao.save(this);
 	}
 }

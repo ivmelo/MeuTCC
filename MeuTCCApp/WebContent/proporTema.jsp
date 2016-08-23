@@ -20,11 +20,11 @@
 		<form action="ProporTema" method="POST">
 			<div class="form-group">
 				<label for="titulo">Título do Tema:</label>
-				<input type="text" name="título" class="form-control" placeholder="Título do seu tema proposto...">
+				<input type="text" name="titulo" class="form-control" placeholder="Título do seu tema proposto...">
 			</div>
 			<div class="form-group">
-				<label for="descricao">Título do Tema:</label>
-				<textarea name="descricao" class="form-control" placeholder="Descrição do seu tema proposto..."></textarea>
+				<label for="descricao">Descrição:</label>
+				<textarea name="descricao" class="form-control" placeholder="Descrição do seu tema proposto. Seja claro e objetivo para facilitar o entendimento..."></textarea>
 			</div>
 			<div class="form-group">
 				<label for="orientador">Orientador Sugerido:</label>
@@ -36,7 +36,7 @@
 							out.println("<option value=\"" + o.getId() + "\">" + o.getNome() + "</option>");
 						}
 					} else {
-						out.println("<p>Nenhum tema cadastrado para o referido curso!</p>");
+						out.println("<option value=\"-1\">-</option>");
 					}
 				%>				
 				</select>

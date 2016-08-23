@@ -177,4 +177,35 @@ public class TemaDAOMySQL implements TemaDAO {
 		//return false;
 		// didn't work
 	}
+
+	public void save(Tema tema) {
+		Connection conn = conexao.getConexaoBD();
+		if (conn != null) {
+			try {
+				// hard coded for nor
+				int idCurso = 1;
+				
+				Statement stAddCandidato = conn.createStatement();
+				int key = stAddCandidato.executeUpdate("insert into tema (titulo, descricao, idCurso, idOrientador, aceito) values ('" + tema.getTitulo() + "', '" + tema.getDescricao() + "', " + idCurso + ", " + tema.getOrientador().getId() + ", " + tema.getAceito() + ")", Statement.RETURN_GENERATED_KEYS);
+				
+				if (key == 1) {
+					// return true;
+					// did work
+					tema.setId(key);
+					
+					try (ResultSet generatedKeys = stAddCandidato.getGeneratedKeys()) {
+			            if (generatedKeys.next()) {
+			                tema.setId(generatedKeys.getInt(1));
+			            }
+			            else {
+			                throw new SQLException("Creating user failed, no ID obtained.");
+			            }
+			        }
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		// return false; // Erro ao inserir tema.
+	}
 }
